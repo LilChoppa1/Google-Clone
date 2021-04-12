@@ -2,11 +2,12 @@ import Head from 'next/head'
 import { useRouter } from 'next/router';
 import Header from '../components/Header'
 import SearchResults from '../components/SearchResults';
-import {API_KEY , CONTEXT_KEY} from '../keys'
-import Response from '../Response';
 
 function Search({results}) {
+    console.log(results)
+    
     const router = useRouter();
+    
     return (
         <div>
             <Head>   
@@ -27,18 +28,24 @@ function Search({results}) {
 export default Search
 
 export async function getServerSideProps(context) { 
-    const useDummyData = true;
+    const API_KEY = process.env.API_KEY
+    const CONTEXT_KEY = process.env.CONTEXT_KEY
+    // const API = 'AIzaSyAeQA6lxoJMrFmCyNRJ_XNSCpMYyIFnO2k'
+    // const CONTEXT = '9b742b4c4c0a5be02'
     const startIndex = context.query.start || "0";
-
-    const data = useDummyData ? Response : await fetch(
-        `https://www.googleapis.com/customsearch/v1?key=${API_KEY}&cx=
-        ${CONTEXT_KEY}&q=${context.query.term}&start=${startIndex}`
-        ).then(response => response.json());
-
+    console.log(API_KEY)
+    console.log(CONTEXT_KEY)
+    console.log(context.query.term)
+    console.log(startIndex)
+    const data =  await fetch(
+        `https://www.googleapis.com/customsearch/v1?key=${API_KEY}&cx=${CONTEXT_KEY}&q=${context.query.term}`
+        ).then((response) => response.json()
+        
+        );
         // AFTER THE SERVER HAS RENDER PASS THE RESULT TO CLIENT
         return{
             props:{
-                results:data,
-            }
-        }
+                results: data,
+            },
+        };
 }

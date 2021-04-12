@@ -1,8 +1,8 @@
 // API KEY   https://developers.google.com/custom-search/v1/using_rest
 
-export const API_KEY = 'AIzaSyAeQA6lxoJMrFmCyNRJ_XNSCpMYyIFnO2k'
+export const API_KEY = process.env.REACT_APP_API
 
 // CONTEXT KEY  https://cse.google.com/cse/create/new
 
-export const CONTEXT_KEY = '9b742b4c4c0a5be02'
+export const CONTEXT_KEY = process.env.REACT_APP_CONTEXT
 
